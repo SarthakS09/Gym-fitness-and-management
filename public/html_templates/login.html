@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sign in | Titanium Fitness</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #101826;
+        font-family: Arial;
+        color: #101826;
+      }
+      .box {
+        width: min(410px, 88vw);
+        background: white;
+        padding: 36px;
+        border-radius: 16px;
+      }
+      .brand {
+        font-weight: 900;
+        font-size: 21px;
+      }
+      .brand b {
+        color: #ee4b3d;
+      }
+      p {
+        color: #6b7280;
+        line-height: 1.5;
+      }
+      label {
+        font-size: 13px;
+        font-weight: bold;
+        display: block;
+        margin-top: 18px;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 13px;
+        margin-top: 7px;
+        border: 1px solid #dce1e8;
+        border-radius: 7px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        border: 0;
+        background: #ee4b3d;
+        color: #fff;
+        font-weight: bold;
+        padding: 13px;
+        border-radius: 7px;
+        margin-top: 24px;
+        cursor: pointer;
+      }
+      a {
+        color: #ee4b3d;
+        text-decoration: none;
+      }
+      .back {
+        font-size: 13px;
+        display: block;
+        margin-top: 22px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="box">
+      <div class="brand">TITANIUM <b>FITNESS</b></div>
+      <h1>Welcome back</h1>
+      <p>Use a demo role to open the corresponding portal.</p>
+      <form onsubmit="go(event)">
+        <label
+          >Email address<input
+            type="email"
+            required
+            placeholder="member@titanium.fit" /></label
+        ><label
+          >Password<input
+            type="password"
+            required
+            placeholder="Password" /></label
+        ><label
+          >Sign in as<select id="role">
+            <option value="dashboard.html">Member</option>
+            <option value="trainer.html">Trainer</option>
+            <option value="admin.html">Administrator</option>
+          </select></label
+        ><button>Sign in</button>
+      </form>
+      <a class="back" href="index.html">Back to home</a>
+    </main>
+    <script>
+      function go(e) {
+        e.preventDefault();
+        location.href = document.getElementById("role").value;
+      }
+    </script>
+  </body>
+</html>
