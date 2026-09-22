@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin Portal</title>
+    <style>
+      body {
+        margin: 0;
+        font: 15px Arial;
+        background: #f6f7fa;
+        color: #101826;
+      }
+      header {
+        background: #101826;
+        color: #fff;
+        padding: 20px 7%;
+        display: flex;
+        justify-content: space-between;
+      }
+      a {
+        color: #ffb9b2;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 35px auto;
+        padding: 0 20px;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .kpi,
+      .card {
+        background: #fff;
+        border: 1px solid #e5e8ee;
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .kpi b {
+        font-size: 29px;
+        color: #ee4b3d;
+        display: block;
+      }
+      .card {
+        margin-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 13px;
+        border-bottom: 1px solid #e5e8ee;
+      }
+      .paid {
+        color: #22834b;
+        font-weight: bold;
+      }
+      @media (max-width: 700px) {
+        .kpis {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <b>TITANIUM <span style="color: #ee4b3d">FITNESS</span> · ADMIN</b
+      ><a href="index.html">Sign out</a>
+    </header>
+    <main class="wrap">
+      <h1>Gym overview</h1>
+      <section class="kpis">
+        <div class="kpi"><b>248</b>active members</div>
+        <div class="kpi"><b>₹4.8L</b>monthly revenue</div>
+        <div class="kpi"><b>86%</b>class occupancy</div>
+        <div class="kpi"><b>15</b>trainers</div>
+      </section>
+      <section class="card">
+        <h2>Recent memberships</h2>
+        <table>
+          <tr>
+            <th>Member</th>
+            <th>Plan</th>
+            <th>Joined</th>
+            <th>Payment</th>
+          </tr>
+          <tr>
+            <td>Priya Nair</td>
+            <td>Pro</td>
+            <td>22 Sep 2026</td>
+            <td class="paid">Paid</td>
+          </tr>
+          <tr>
+            <td>Arjun Singh</td>
+            <td>Starter</td>
+            <td>22 Sep 2026</td>
+            <td class="paid">Paid</td>
+          </tr>
+          <tr>
+            <td>Neha Shah</td>
+            <td>Elite</td>
+            <td>21 Sep 2026</td>
+            <td class="paid">Paid</td>
+          </tr>
+        </table>
+      </section>
+      <section class="card">
+        <h2>Administration</h2>
+        <p>
+          <a href="classes.html">Manage class schedule →</a> &nbsp; · &nbsp;
+          <a href="trainer.html">Manage trainers →</a> &nbsp; · &nbsp;
+          <a href="dashboard.html">Member records →</a>
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
