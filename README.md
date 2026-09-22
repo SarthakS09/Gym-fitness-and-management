@@ -1,1 +1,1 @@
-# Gym-fitness-and-management
+# Titanium Fitness
