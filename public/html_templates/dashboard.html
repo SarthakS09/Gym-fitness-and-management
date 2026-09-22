@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Member Portal | Titanium Fitness</title>
+    <style>
+      body {
+        margin: 0;
+        font: 15px Arial;
+        background: #f6f7fa;
+        color: #101826;
+      }
+      .top {
+        padding: 20px 6%;
+        background: #101826;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+      }
+      .top a {
+        color: #ffb9b2;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 35px auto;
+        padding: 0 20px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #e4e7ed;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .tag {
+        background: #fff0ef;
+        color: #db3428;
+        padding: 7px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 12px;
+      }
+      .metric {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .metric div {
+        background: #fff7e9;
+        padding: 15px;
+        border-radius: 8px;
+      }
+      .metric strong {
+        font-size: 24px;
+        display: block;
+      }
+      button {
+        background: #ee4b3d;
+        border: 0;
+        border-radius: 6px;
+        padding: 11px 14px;
+        color: white;
+        font-weight: bold;
+      }
+      @media (max-width: 700px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .metric {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <b>TITANIUM <span style="color: #ee4b3d">FITNESS</span></b
+      ><a href="index.html">Sign out</a>
+    </header>
+    <main class="wrap">
+      <p class="tag">PRO MEMBER</p>
+      <h1>Hello, Alex.</h1>
+      <div class="grid">
+        <section>
+          <article class="card">
+            <h2>Today's workout</h2>
+            <p>
+              <b>Upper body strength</b> · 45 minutes · Trainer: Priya Sharma
+            </p>
+            <ol>
+              <li>Bench press — 4 × 10</li>
+              <li>Lat pulldown — 4 × 12</li>
+              <li>Shoulder press — 3 × 10</li>
+              <li>Plank — 3 × 45 sec</li>
+            </ol>
+            <button onclick="alert('Workout marked as complete!')">
+              Mark complete
+            </button>
+          </article>
+          <article class="card">
+            <h2>Progress this month</h2>
+            <div class="metric">
+              <div><strong>12</strong>workouts</div>
+              <div><strong>8.4k</strong>calories burned</div>
+              <div><strong>76 kg</strong>current weight</div>
+            </div>
+          </article>
+        </section>
+        <aside>
+          <article class="card">
+            <h2>Membership</h2>
+            <p><b>Pro Plan</b><br />Renews 15 Oct 2026</p>
+            <button onclick="alert('Payment portal opening soon.')">
+              Manage payment
+            </button>
+          </article>
+          <article class="card">
+            <h2>Quick links</h2>
+            <p><a href="classes.html">Book a class →</a></p>
+            <p><a href="trainer.html">My trainer →</a></p>
+            <p><a href="index.html">Explore plans →</a></p>
+          </article>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
