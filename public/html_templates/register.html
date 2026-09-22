@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Join | Titanium Fitness</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin: 0;
+        background: #fffaf4;
+        color: #101826;
+      }
+      .wrap {
+        max-width: 650px;
+        margin: 55px auto;
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #e6e9ef;
+        border-radius: 16px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .brand {
+        font-weight: 900;
+      }
+      .brand b {
+        color: #ee4b3d;
+      }
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: bold;
+        margin-top: 17px;
+      }
+      input,
+      select {
+        box-sizing: border-box;
+        width: 100%;
+        margin-top: 6px;
+        padding: 12px;
+        border: 1px solid #dce1e8;
+        border-radius: 6px;
+      }
+      button {
+        margin-top: 26px;
+        width: 100%;
+        background: #ee4b3d;
+        color: white;
+        border: 0;
+        padding: 14px;
+        border-radius: 7px;
+        font-weight: bold;
+      }
+      a {
+        color: #ee4b3d;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <p class="brand">TITANIUM <b>FITNESS</b></p>
+      <h1>Create your membership</h1>
+      <form
+        onsubmit="
+          event.preventDefault();
+          alert(
+            'Registration submitted. Your membership request is ready for administrator approval.',
+          );
+          location.href = 'login.html';
+        "
+      >
+        <label>Full name<input required placeholder="Your name" /></label
+        ><label
+          >Email<input
+            type="email"
+            required
+            placeholder="you@example.com" /></label
+        ><label>Phone number<input required placeholder="+91" /></label
+        ><label
+          >Choose plan<select>
+            <option>Starter - INR 1,999/month</option>
+            <option>Pro - INR 3,499/month</option>
+            <option>Elite - INR 5,999/month</option>
+          </select></label
+        ><label
+          >Fitness goal<select>
+            <option>General fitness</option>
+            <option>Weight loss</option>
+            <option>Muscle gain</option>
+            <option>Strength and endurance</option>
+          </select></label
+        ><button>Create membership</button>
+      </form>
+      <p><a href="index.html">Back to home</a></p>
+    </main>
+  </body>
+</html>
