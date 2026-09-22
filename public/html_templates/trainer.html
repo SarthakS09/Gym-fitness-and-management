@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Trainer Portal</title>
+    <style>
+      body {
+        margin: 0;
+        font: 15px Arial;
+        background: #f6f7fa;
+        color: #101826;
+      }
+      header {
+        background: #101826;
+        color: white;
+        padding: 20px 7%;
+        display: flex;
+        justify-content: space-between;
+      }
+      a {
+        color: #e6493d;
+        text-decoration: none;
+      }
+      .wrap {
+        max-width: 1050px;
+        margin: 35px auto;
+        padding: 0 20px;
+      }
+      .card {
+        background: white;
+        border: 1px solid #e3e7ed;
+        border-radius: 12px;
+        padding: 22px;
+        margin: 16px 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      td,
+      th {
+        text-align: left;
+        padding: 13px;
+        border-bottom: 1px solid #e3e7ed;
+      }
+      .badge {
+        background: #eaf8ef;
+        color: #247a41;
+        padding: 6px 9px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      button {
+        background: #ee4b3d;
+        color: white;
+        border: 0;
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <b>TITANIUM <span style="color: #ee4b3d">FITNESS</span> · TRAINER</b
+      ><a href="index.html">Sign out</a>
+    </header>
+    <main class="wrap">
+      <h1>Trainer workspace</h1>
+      <div class="card">
+        <h2>Today’s schedule</h2>
+        <table>
+          <tr>
+            <th>Time</th>
+            <th>Session</th>
+            <th>Member</th>
+            <th>Status</th>
+          </tr>
+          <tr>
+            <td>08:00</td>
+            <td>Personal training</td>
+            <td>Alex Mehta</td>
+            <td><span class="badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>11:00</td>
+            <td>Strength assessment</td>
+            <td>Riya Gupta</td>
+            <td><span class="badge">Confirmed</span></td>
+          </tr>
+          <tr>
+            <td>18:30</td>
+            <td>HIIT group class</td>
+            <td>18 participants</td>
+            <td><span class="badge">Booked</span></td>
+          </tr>
+        </table>
+      </div>
+      <div class="card">
+        <h2>Assigned members</h2>
+        <p>
+          <b>Alex Mehta</b> — Upper body program · Last check-in today
+          <button onclick="alert('Workout plan editor opened.')">
+            Update plan
+          </button>
+        </p>
+        <p>
+          <b>Riya Gupta</b> — Fat loss program · Last check-in 20 Sep
+          <button onclick="alert('Workout plan editor opened.')">
+            Update plan
+          </button>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
