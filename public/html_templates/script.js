@@ -1,5 +1,4 @@
 
-// Show the current date and time
 function showDate() {
     let date = new Date();
 
@@ -10,7 +9,6 @@ function showDate() {
 showDate();
 
 
-// Calculate BMI
 function calculateBMI() {
     let height = document.getElementById("height").value;
     let weight = document.getElementById("weight").value;
@@ -29,14 +27,12 @@ function calculateBMI() {
 }
 
 
-// Show workout
 function showWorkout() {
     document.getElementById("workout-result").innerHTML =
         "Today's workout: 10 squats, 10 push-ups and a 20-second plank.";
 }
 
 
-// Change website theme
 function changeTheme() {
     document.body.classList.toggle("dark-mode");
 }
