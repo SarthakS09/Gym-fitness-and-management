@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classes | Titanium Fitness</title>
+  <title>Fitness Classes | Titanium Fitness</title>
 
   <style>
     * {
@@ -41,6 +41,7 @@
     header a {
       color: white;
       text-decoration: none;
+      font-weight: bold;
     }
 
     header a:hover {
@@ -48,7 +49,7 @@
     }
 
     .wrap {
-      max-width: 1000px;
+      max-width: 1050px;
       margin: 40px auto;
       padding: 0 22px;
     }
@@ -68,30 +69,85 @@
       color: #677080;
       font-size: 16px;
       line-height: 1.7;
+      max-width: 720px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 15px;
+      margin: 28px 0;
+    }
+
+    .summary-card {
+      background: white;
+      border: 1px solid #e4e7ed;
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .summary-card p {
+      margin: 0 0 8px;
+      color: #677080;
+      font-size: 14px;
+    }
+
+    .summary-card strong {
+      font-size: 25px;
+      color: #101826;
     }
 
     .filters {
       display: flex;
-      gap: 14px;
-      margin: 28px 0;
+      gap: 12px;
+      margin: 28px 0 16px;
       flex-wrap: wrap;
     }
 
     .filters input,
     .filters select {
       flex: 1;
-      min-width: 220px;
+      min-width: 200px;
       padding: 13px 15px;
       border: 1px solid #d7dce4;
       border-radius: 8px;
       background: white;
       font-size: 15px;
+      color: #101826;
     }
 
     .filters input:focus,
     .filters select:focus {
       outline: 2px solid #ee4b3d;
       outline-offset: 2px;
+    }
+
+    .reset-button {
+      padding: 12px 16px;
+      border: 1px solid #d7dce4;
+      background: white;
+      color: #101826;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .reset-button:hover {
+      background: #f0f2f5;
+    }
+
+    .results-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    #resultCount {
+      color: #677080;
+      font-size: 14px;
     }
 
     .class {
@@ -113,15 +169,19 @@
       box-shadow: 0 8px 20px rgba(16, 24, 38, 0.1);
     }
 
+    .class-details {
+      flex: 1;
+    }
+
     .class h2 {
-      margin: 0 0 12px;
+      margin: 12px 0;
       font-size: 22px;
     }
 
     .class p {
       color: #677080;
       line-height: 1.6;
-      margin: 8px 0;
+      margin: 7px 0;
     }
 
     .tag {
@@ -132,6 +192,18 @@
       border-radius: 20px;
       font-size: 12px;
       font-weight: bold;
+    }
+
+    .spots {
+      font-weight: bold;
+    }
+
+    .spots.low {
+      color: #c47713;
+    }
+
+    .spots.full {
+      color: #c0392b;
     }
 
     .book-button {
@@ -151,11 +223,30 @@
       background: #d83b30;
     }
 
+    .book-button:disabled {
+      background: #27834a;
+      cursor: default;
+    }
+
+    .book-button.full-button {
+      background: #7b8492;
+    }
+
+    .empty {
+      background: white;
+      border: 1px solid #e4e7ed;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      color: #677080;
+      line-height: 1.6;
+    }
+
     .notice {
       background: #fff0ed;
       border-left: 4px solid #ee4b3d;
-      padding: 15px;
-      margin-top: 25px;
+      padding: 17px;
+      margin-top: 28px;
       border-radius: 5px;
       color: #4c5565;
       line-height: 1.6;
@@ -180,7 +271,7 @@
       letter-spacing: 0.5px;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       header {
         padding: 18px 5%;
       }
@@ -194,12 +285,17 @@
         font-size: 29px;
       }
 
+      .summary {
+        grid-template-columns: 1fr;
+      }
+
       .filters {
         flex-direction: column;
       }
 
       .filters input,
-      .filters select {
+      .filters select,
+      .reset-button {
         width: 100%;
       }
 
@@ -228,80 +324,102 @@
     <div class="brand">
       TITANIUM <span>FITNESS</span>
     </div>
-
     <a href="dashboard.html">Member Portal &rarr;</a>
   </header>
 
   <main class="wrap">
     <p class="eyebrow">GROUP FITNESS</p>
-
     <h1>Find Your Next Class</h1>
 
     <p class="intro">
       Discover exciting workouts, meet our trainers and find a class
-      that fits your fitness goals.
+      that fits your fitness goals. Choose your preferred workout and
+      reserve your place.
     </p>
 
-    <section class="filters" aria-label="Class search and filters">
-      <input
-        type="search"
-        placeholder="Search fitness classes..."
-        aria-label="Search fitness classes"
-      >
+    <section class="summary" aria-label="Class summary">
+      <div class="summary-card">
+        <p>Available Classes</p>
+        <strong id="totalClasses">3</strong>
+      </div>
 
-      <select aria-label="Select class category">
-        <option>All Categories</option>
-        <option>Yoga</option>
-        <option>HIIT</option>
-        <option>Strength</option>
-      </select>
+      <div class="summary-card">
+        <p>Your Bookings</p>
+        <strong id="bookingCount">0</strong>
+      </div>
+
+      <div class="summary-card">
+        <p>Available Spots</p>
+        <strong id="availableSpots">23</strong>
+      </div>
     </section>
 
-    <section aria-label="Available fitness classes">
-      <article class="class">
-        <div>
+    <section class="filters" aria-label="Search and filter classes">
+      <input
+        type="search"
+        id="search"
+        placeholder="Search class, trainer or location..."
+        aria-label="Search classes"
+      >
+
+      <select id="category" aria-label="Filter by category">
+        <option value="All">All Categories</option>
+        <option value="Yoga">Yoga</option>
+        <option value="HIIT">HIIT</option>
+        <option value="Strength">Strength</option>
+      </select>
+
+      <button class="reset-button" id="resetFilters" type="button">
+        Reset Filters
+      </button>
+    </section>
+
+    <div class="results-row">
+      <p id="resultCount" aria-live="polite">3 classes found</p>
+    </div>
+
+    <section id="classes" aria-label="Available fitness classes">
+      <article class="class" data-category="Yoga" data-spots="8">
+        <div class="class-details">
           <span class="tag">YOGA</span>
           <h2>Morning Yoga</h2>
           <p>Time: 07:00–08:00</p>
           <p>Location: Studio A</p>
           <p>Trainer: Priya Sharma</p>
-          <p>8 spots available</p>
+          <p class="spots">8 spots available</p>
         </div>
-
         <button class="book-button" type="button">Book Class</button>
       </article>
 
-      <article class="class">
-        <div>
+      <article class="class" data-category="HIIT" data-spots="3">
+        <div class="class-details">
           <span class="tag">HIIT</span>
           <h2>HIIT Circuit</h2>
           <p>Time: 18:30–19:15</p>
           <p>Location: Studio B</p>
           <p>Trainer: Aman Patel</p>
-          <p>3 spots available</p>
+          <p class="spots">3 spots available</p>
         </div>
-
         <button class="book-button" type="button">Book Class</button>
       </article>
 
-      <article class="class">
-        <div>
+      <article class="class" data-category="Strength" data-spots="12">
+        <div class="class-details">
           <span class="tag">STRENGTH</span>
           <h2>Strength Foundations</h2>
           <p>Time: 19:30–20:30</p>
           <p>Location: Gym Floor</p>
           <p>Trainer: Rohan Das</p>
-          <p>12 spots available</p>
+          <p class="spots">12 spots available</p>
         </div>
-
         <button class="book-button" type="button">Book Class</button>
       </article>
     </section>
 
     <div class="notice">
       <strong>Ready to get started?</strong>
-      Choose a class that matches your goals and visit the member portal
-      for more information.
+      Choose a class that matches your goals. Bookings on this demo page
+      are temporary and reset when the page is refreshed.
     </div>
   </main>
 
@@ -309,5 +427,128 @@
     <p>&copy; 2026 Titanium Fitness | Your Fitness, Your Journey</p>
     <p>Stay Consistent. Stay Strong. Keep Moving.</p>
   </footer>
+
+  <script>
+    const searchInput = document.getElementById("search");
+    const categorySelect = document.getElementById("category");
+    const resetButton = document.getElementById("resetFilters");
+    const classesContainer = document.getElementById("classes");
+    const resultCount = document.getElementById("resultCount");
+    const totalClasses = document.getElementById("totalClasses");
+    const bookingCount = document.getElementById("bookingCount");
+    const availableSpots = document.getElementById("availableSpots");
+
+    const classCards = Array.from(
+      classesContainer.querySelectorAll(".class")
+    );
+
+    let bookings = 0;
+
+    function updateSummary() {
+      const totalSpots = classCards.reduce((sum, card) => {
+        return sum + Number(card.dataset.spots);
+      }, 0);
+
+      totalClasses.textContent = classCards.length;
+      bookingCount.textContent = bookings;
+      availableSpots.textContent = totalSpots;
+    }
+
+    function filterClasses() {
+      const searchText = searchInput.value.toLowerCase().trim();
+      const selectedCategory = categorySelect.value;
+      let visibleCount = 0;
+
+      classCards.forEach(card => {
+        const details = card.querySelector(".class-details");
+        const searchableText = details.textContent.toLowerCase();
+        const cardCategory = card.dataset.category;
+
+        const matchesSearch = searchableText.includes(searchText);
+        const matchesCategory =
+          selectedCategory === "All" ||
+          cardCategory === selectedCategory;
+
+        const isVisible = matchesSearch && matchesCategory;
+        card.hidden = !isVisible;
+
+        if (isVisible) {
+          visibleCount++;
+        }
+      });
+
+      let emptyMessage = document.getElementById("emptyMessage");
+
+      if (visibleCount === 0) {
+        if (!emptyMessage) {
+          emptyMessage = document.createElement("p");
+          emptyMessage.id = "emptyMessage";
+          emptyMessage.className = "empty";
+          emptyMessage.textContent =
+            "No classes found. Try a different search or reset your filters.";
+          classesContainer.appendChild(emptyMessage);
+        }
+      } else if (emptyMessage) {
+        emptyMessage.remove();
+      }
+
+      resultCount.textContent =
+        visibleCount + (visibleCount === 1 ? " class found" : " classes found");
+    }
+
+    classCards.forEach(card => {
+      const button = card.querySelector(".book-button");
+      const spotsLabel = card.querySelector(".spots");
+
+      button.addEventListener("click", () => {
+        if (button.disabled) {
+          return;
+        }
+
+        let spots = Number(card.dataset.spots);
+
+        if (spots <= 0) {
+          return;
+        }
+
+        spots--;
+        bookings++;
+
+        card.dataset.spots = spots;
+        spotsLabel.textContent =
+          spots + (spots === 1 ? " spot available" : " spots available");
+
+        button.textContent = "Booked ✓";
+        button.disabled = true;
+
+        if (spots <= 2) {
+          spotsLabel.classList.add("low");
+        }
+
+        if (spots === 0) {
+          spotsLabel.textContent = "Class full";
+          spotsLabel.classList.remove("low");
+          spotsLabel.classList.add("full");
+          button.textContent = "Class Full";
+          button.classList.add("full-button");
+        }
+
+        updateSummary();
+      });
+    });
+
+    searchInput.addEventListener("input", filterClasses);
+    categorySelect.addEventListener("change", filterClasses);
+
+    resetButton.addEventListener("click", () => {
+      searchInput.value = "";
+      categorySelect.value = "All";
+      filterClasses();
+      searchInput.focus();
+    });
+
+    updateSummary();
+    filterClasses();
+  </script>
 </body>
 </html>
