@@ -47,6 +47,7 @@
         border-radius: 6px;
         padding: 11px 15px;
         font-weight: bold;
+        cursor: pointer;
       }
       @media (max-width: 550px) {
         .class {
@@ -88,11 +89,35 @@
       </div>
     </main>
     <script>
-      function book(b) {
-        b.textContent = "Booked ✓";
-        b.disabled = true;
-        b.style.background = "#27834a";
-      }
+      function book(button) {
+    const classCard = button.closest(".class");
+    const details = classCard.querySelector("p");
+    const spotsMatch = details.textContent.match(/(\d+)\s+spots left/i);
+
+    if (!spotsMatch) {
+        alert("Booking information is unavailable.");
+        return;
+    }
+
+    const spotsLeft = Number(spotsMatch[1]);
+
+    if (spotsLeft <= 0) {
+        alert("Sorry! This class is fully booked.");
+        button.disabled = true;
+        return;
+    }
+
+    details.textContent = details.textContent.replace(
+        /\d+\s+spots left/i,
+        `${spotsLeft - 1} spots left`
+    );
+
+    button.textContent = "Booked ✓";
+    button.disabled = true;
+    button.style.backgroundColor = "#27834a";
+
+    alert("Class booked successfully!");
+}
     </script>
   </body>
 </html>
