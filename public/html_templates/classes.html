@@ -553,15 +553,23 @@
         }
 
         updateSummary();
+
+        // Update availability results immediately after booking
+        filterClasses();
       });
     });
 
     searchInput.addEventListener("input", filterClasses);
     categorySelect.addEventListener("change", filterClasses);
 
+    // Listen for availability filter changes
+    availabilityFilter.addEventListener("change", filterClasses);
+
     resetButton.addEventListener("click", () => {
       searchInput.value = "";
       categorySelect.value = "All";
+      availabilityFilter.value = "All";
+
       filterClasses();
       searchInput.focus();
     });
