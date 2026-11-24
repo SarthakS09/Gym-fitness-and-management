@@ -1,4 +1,5 @@
 
+// Show the current date and time
 function showDate() {
     let date = new Date();
 
@@ -9,30 +10,74 @@ function showDate() {
 showDate();
 
 
+// Calculate BMI
 function calculateBMI() {
-    let height = document.getElementById("height").value;
-    let weight = document.getElementById("weight").value;
-    let result = document.getElementById("bmi-result");
+    const heightInput = document.getElementById("height");
+    const weightInput = document.getElementById("weight");
+    const result = document.getElementById("bmi-result");
 
-    if (height <= 0 || weight <= 0 || height == "" || weight == "") {
-        result.innerHTML = "Please enter valid height and weight.";
+    const height = Number(heightInput.value);
+    const weight = Number(weightInput.value);
+
+    if (
+        !height ||
+        !weight ||
+        height < 50 ||
+        height > 250 ||
+        weight < 10 ||
+        weight > 300
+    ) {
+        result.textContent =
+            "Please enter a valid height (50–250 cm) and weight (10–300 kg).";
         return;
     }
 
-    height = height / 100;
+    const heightInMetres = height / 100;
 
-    let bmi = weight / (height * height);
+    const bmi = weight / (heightInMetres * heightInMetres);
 
-    result.innerHTML = "Your BMI is " + bmi.toFixed(2);
+    let category = "";
+
+    if (bmi < 18.5) {
+        category = "Underweight";
+    } else if (bmi < 25) {
+        category = "Normal range";
+    } else if (bmi < 30) {
+        category = "Overweight";
+    } else {
+        category = "Obesity range";
+    }
+
+    result.textContent =
+        `Your BMI is ${bmi.toFixed(1)} (${category}).`;
 }
 
 
+// Show workout
 function showWorkout() {
-    document.getElementById("workout-result").innerHTML =
-        "Today's workout: 10 squats, 10 push-ups and a 20-second plank.";
+    const category =
+        document.getElementById("workout-category").value;
+
+    const workouts = {
+        chest:
+            "Chest: Push-ups – 3 × 12, Bench Press – 3 × 10, Chest Fly – 3 × 12.",
+
+        back:
+            "Back: Lat Pulldown – 3 × 12, Seated Row – 3 × 10, Superman Hold – 3 × 20 sec.",
+
+        legs:
+            "Legs: Squats – 3 × 12, Lunges – 3 × 10, Calf Raises – 3 × 15.",
+
+        cardio:
+            "Cardio: Brisk Walk – 5 min, Jogging – 10 min, Cycling – 10 min."
+    };
+
+    document.getElementById("workout-result").textContent =
+        workouts[category];
 }
 
 
+// Change website theme
 function changeTheme() {
     document.body.classList.toggle("dark-mode");
 }
