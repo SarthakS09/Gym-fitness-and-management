@@ -369,7 +369,6 @@
         <option value="Strength">Strength</option>
       </select>
 
-      <!-- New Feature: Availability Filter -->
       <select id="availabilityFilter" aria-label="Filter by availability">
         <option value="All">All Classes</option>
         <option value="Available">Available Classes</option>
@@ -438,6 +437,7 @@
   <script>
     const searchInput = document.getElementById("search");
     const categorySelect = document.getElementById("category");
+    const availabilityFilter = document.getElementById("availabilityFilter");
     const resetButton = document.getElementById("resetFilters");
     const classesContainer = document.getElementById("classes");
     const resultCount = document.getElementById("resultCount");
@@ -464,6 +464,8 @@
     function filterClasses() {
       const searchText = searchInput.value.toLowerCase().trim();
       const selectedCategory = categorySelect.value;
+      const selectedAvailability = availabilityFilter.value;
+
       let visibleCount = 0;
 
       classCards.forEach(card => {
@@ -472,11 +474,21 @@
         const cardCategory = card.dataset.category;
 
         const matchesSearch = searchableText.includes(searchText);
+
         const matchesCategory =
           selectedCategory === "All" ||
           cardCategory === selectedCategory;
 
-        const isVisible = matchesSearch && matchesCategory;
+        const spots = Number(card.dataset.spots);
+
+        const matchesAvailability =
+          selectedAvailability === "All" ||
+          (selectedAvailability === "Available" && spots > 0) ||
+          (selectedAvailability === "Full" && spots === 0);
+
+        const isVisible =
+          matchesSearch && matchesCategory && matchesAvailability;
+
         card.hidden = !isVisible;
 
         if (isVisible) {
