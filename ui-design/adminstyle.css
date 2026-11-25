@@ -305,7 +305,7 @@ td.paid::before {
 
   header a {
     padding: 8px 10px;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .wrap {
@@ -331,7 +331,7 @@ td.paid::before {
   }
 
   .card h2 {
-    font-size: 18px;
+    font-size: 19px;
   }
 
   .card:first-of-type {
