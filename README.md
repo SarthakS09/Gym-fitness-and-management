@@ -15,6 +15,13 @@ Open `public/html_templates/index.html` in a browser. No build process or server
 - `admin.html` - management overview and payments
 - `classes.html` - class discovery and booking
 
+## Recent CSS Updates
+
+- Improved table cell spacing and readability.
+- Refined card paragraph spacing.
+- Improved card link alignment.
+- Enhanced reduced-motion accessibility by disabling animations and transitions.
+
 ## Four-member GitHub workflow
 
 1. Create an issue before beginning a feature.
