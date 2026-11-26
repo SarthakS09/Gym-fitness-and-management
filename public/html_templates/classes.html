@@ -1,4 +1,250 @@
-<!doctype html>
+<!-- <<<<<<< HEAD -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes | Titanium Fitness</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font: 15px Arial, sans-serif;
+            color: #101826;
+            background: #fffaf4;
+        }
+
+        header {
+            background: linear-gradient(120deg, #101826, #27364d);
+            color: white;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header b {
+            font-size: 21px;
+            letter-spacing: 1px;
+        }
+
+        a {
+            color: #ee4b3d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #ff8278;
+        }
+
+        .wrap {
+            max-width: 950px;
+            margin: 45px auto;
+            padding: 0 20px;
+        }
+
+        .subtitle {
+            color: #ee4b3d;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-top: 10px;
+        }
+
+        .class {
+            background: white;
+            border: 1px solid #e4e7ed;
+            border-radius: 14px;
+            padding: 22px;
+            margin: 18px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+            transition: 0.3s ease;
+        }
+
+        .class:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 22px rgba(16,24,38,0.12);
+        }
+
+        .class h2 {
+            margin-bottom: 8px;
+        }
+
+        .class p {
+            color: #677080;
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #fff0ed;
+            color: #ee4b3d;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        button {
+            background: #ee4b3d;
+            color: white;
+            border: 0;
+            border-radius: 7px;
+            padding: 12px 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        button:hover:not(:disabled) {
+            background: #d9362a;
+            transform: scale(1.04);
+        }
+
+        button:disabled {
+            background: #27834a;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 13px 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: #e6f5eb;
+            color: #216c3c;
+            font-weight: bold;
+        }
+
+        @media (max-width: 550px) {
+            header {
+                padding: 18px 5%;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+
+            .class {
+                display: block;
+            }
+
+            .class button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <b>TITANIUM <span style="color: #ee4b3d">FITNESS</span></b>
+        <a href="dashboard.html">Member portal →</a>
+    </header>
+
+    <main class="wrap">
+
+        <p class="subtitle">GROUP FITNESS</p>
+        <h1>Find your next class.</h1>
+        <p>Stay active, build strength and achieve your fitness goals.</p>
+
+        <div id="message" class="message"></div>
+
+        <div id="classes">
+
+            <article class="class">
+                <div>
+                    <span class="tag">YOGA</span>
+                    <h2>Morning Yoga</h2>
+                    <p>07:00–08:00 · Studio A · Priya Sharma · 8 spots left</p>
+                </div>
+                <button onclick="book(this)">Book class</button>
+            </article>
+
+            <article class="class">
+                <div>
+                    <span class="tag">HIGH INTENSITY</span>
+                    <h2>HIIT Circuit</h2>
+                    <p>18:30–19:15 · Studio B · Aman Patel · 3 spots left</p>
+                </div>
+                <button onclick="book(this)">Book class</button>
+            </article>
+
+            <article class="class">
+                <div>
+                    <span class="tag">STRENGTH</span>
+                    <h2>Strength Foundations</h2>
+                    <p>19:30–20:30 · Gym Floor · Rohan Das · 12 spots left</p>
+                </div>
+                <button onclick="book(this)">Book class</button>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        function book(button) {
+            const classCard = button.closest(".class");
+            const details = classCard.querySelector("p");
+            const className = classCard.querySelector("h2").textContent;
+            const message = document.getElementById("message");
+
+            const spotsMatch = details.textContent.match(/(\d+)\s+spots left/i);
+
+            if (!spotsMatch) {
+                message.style.display = "block";
+                message.style.background = "#fff0ed";
+                message.style.color = "#d9362a";
+                message.textContent = "Booking information is unavailable.";
+                return;
+            }
+
+            const spotsLeft = Number(spotsMatch[1]);
+
+            if (spotsLeft <= 0) {
+                button.disabled = true;
+                button.textContent = "Fully Booked";
+                return;
+            }
+
+            details.textContent = details.textContent.replace(
+                /\d+\s+spots left/i,
+                `${spotsLeft - 1} spots left`
+            );
+
+            button.textContent = "Booked ✓";
+            button.disabled = true;
+
+            message.style.display = "block";
+            message.style.background = "#e6f5eb";
+            message.style.color = "#216c3c";
+            message.textContent = `Successfully booked your ${className} class!`;
+
+            if (spotsLeft - 1 === 0) {
+                // The next visitor cannot book this class.
+                button.textContent = "Booked ✓";
+            }
+        }
+    </script>
+
+</body>
+=======
+<!-- <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -95,4 +341,5 @@
       }
     </script>
   </body>
-</html>
+>>>>>>> 1e8abeb0 (Replace legacy frontend with static HTML)
+</html> -->

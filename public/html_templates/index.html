@@ -1,292 +1,1183 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Titanium Fitness - a modern gym management system for members, trainers and administrators.">
     <title>Titanium Fitness | Gym Management</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Apply saved theme before paint to avoid a flash -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem("tf-theme");
+                var prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                document.documentElement.setAttribute("data-theme", saved || (prefers ? "dark" : "light"));
+            } catch (e) {}
+        })();
+    </script>
+
     <style>
-      :root {
-        --ink: #101826;
-        --muted: #667085;
-        --red: #ee4b3d;
-        --line: #e5e8ee;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font: 15px Arial;
-        color: var(--ink);
-        background: #fffdf8;
-      }
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
-      .nav {
-        padding: 20px 7%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: #fff;
-        border-bottom: 1px solid var(--line);
-      }
-      .logo {
-        font-size: 21px;
-        font-weight: 900;
-      }
-      .logo b,
-      .eyebrow {
-        color: var(--red);
-      }
-      .links {
-        display: flex;
-        gap: 22px;
-        align-items: center;
-        font-weight: bold;
-        font-size: 14px;
-      }
-      .button {
-        display: inline-block;
-        background: var(--red);
-        color: #fff;
-        padding: 12px 17px;
-        border-radius: 7px;
-        font-weight: bold;
-      }
-      .hero {
-        padding: 80px 7%;
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 42px;
-        align-items: center;
-        background: linear-gradient(120deg, #fff4ed, #fff);
-      }
-      h1 {
-        font-size: clamp(45px, 6vw, 74px);
-        letter-spacing: -3px;
-        line-height: 0.96;
-        margin: 12px 0 22px;
-      }
-      h1 span {
-        color: var(--red);
-      }
-      .lead {
-        font-size: 18px;
-        line-height: 1.6;
-        color: var(--muted);
-        max-width: 570px;
-      }
-      .ghost {
-        display: inline-block;
-        border: 1px solid var(--ink);
-        padding: 11px 17px;
-        border-radius: 7px;
-        font-weight: bold;
-        margin-left: 9px;
-      }
-      .visual {
-        background: var(--ink);
-        color: #fff;
-        padding: 34px;
-        border-radius: 20px;
-        min-height: 340px;
-      }
-      .visual h2 {
-        font-size: 30px;
-      }
-      .stats {
-        display: flex;
-        gap: 27px;
-        margin-top: 50px;
-      }
-      .stats b {
-        display: block;
-        color: #f6bd45;
-        font-size: 28px;
-      }
-      .stats small {
-        color: #b6bfce;
-      }
-      .section {
-        padding: 65px 7%;
-      }
-      .section h2 {
-        font-size: 34px;
-        margin: 8px 0 30px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 17px;
-      }
-      .card {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 13px;
-        padding: 23px;
-      }
-      .card p {
-        color: var(--muted);
-        line-height: 1.5;
-      }
-      .number {
-        color: var(--red);
-        font-size: 24px;
-        font-weight: bold;
-      }
-      .plans {
-        background: var(--ink);
-        color: #fff;
-      }
-      .plans .card {
-        color: var(--ink);
-      }
-      .price {
-        font-size: 30px;
-        font-weight: 900;
-      }
-      .price small,
-      li {
-        font-size: 13px;
-        color: var(--muted);
-        font-weight: normal;
-      }
-      li {
-        line-height: 2;
-      }
-      .featured {
-        border: 2px solid #f6bd45;
-      }
-      footer {
-        padding: 27px 7%;
-        background: #090e18;
-        color: #b6bfce;
-        display: flex;
-        justify-content: space-between;
-        font-size: 13px;
-      }
-      @media (max-width: 700px) {
-        .links a:not(.button) {
-          display: none;
+        :root {
+            --ink: #0f172a;
+            --muted: #64748b;
+            --red: #ee4b3d;
+            --red-dark: #d63a2c;
+            --gold: #f6bd45;
+            --line: #e7e9ef;
+            --bg: #fbfaf7;
+            --bg-soft: #f3f1ec;
+            --card: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 12px 30px -10px rgba(15, 23, 42, 0.18);
+            --shadow-lg: 0 30px 60px -20px rgba(15, 23, 42, 0.3);
+            --radius: 16px;
+            --font: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+            --display: "Space Grotesk", "Inter", system-ui, sans-serif;
         }
-        .hero,
-        .grid {
-          grid-template-columns: 1fr;
+
+        [data-theme="dark"] {
+            --ink: #f1f5f9;
+            --muted: #94a3b8;
+            --line: #26334a;
+            --bg: #0b1220;
+            --bg-soft: #0f1829;
+            --card: #131d31;
+            --nav-bg: rgba(11, 18, 32, 0.8);
+            --shadow-md: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
+            --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.7);
         }
-        .stats {
-          margin-top: 25px;
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+
+        body {
+            margin: 0;
+            font: 16px/1.6 var(--font);
+            color: var(--ink);
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            transition: background 0.3s ease, color 0.3s ease;
         }
+
+        a { text-decoration: none; color: inherit; }
+        img, svg { max-width: 100%; display: block; }
+        ul { padding: 0; margin: 0; list-style: none; }
+
+        :focus-visible {
+            outline: 3px solid var(--red);
+            outline-offset: 3px;
+            border-radius: 6px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: 16px;
+            top: -60px;
+            background: var(--red);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            z-index: 200;
+            font-weight: 600;
+            transition: top 0.2s;
+        }
+        .skip-link:focus { top: 12px; }
+
+        .container { width: min(1180px, 90%); margin-inline: auto; }
+
+        /* ---------- Buttons ---------- */
+        .button, .ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font: 600 15px var(--font);
+            cursor: pointer;
+            border: 1.5px solid transparent;
+            transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            white-space: nowrap;
+        }
+        .button {
+            background: var(--red);
+            color: #fff;
+            box-shadow: 0 8px 20px -8px rgba(238, 75, 61, 0.7);
+        }
+        .button:hover { background: var(--red-dark); transform: translateY(-2px); }
+        .button:active { transform: translateY(0); }
         .ghost {
-          margin-top: 8px;
-          margin-left: 0;
+            background: transparent;
+            border-color: var(--line);
+            color: var(--ink);
         }
-        footer {
-          display: block;
+        .ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
+        .btn-sm { padding: 9px 16px; font-size: 14px; }
+        .btn-block { width: 100%; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin: 0 0 12px;
         }
-      }
+        .eyebrow::before {
+            content: "";
+            width: 22px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 2px;
+        }
+
+        /* ---------- Navigation ---------- */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: saturate(180%) blur(14px);
+            -webkit-backdrop-filter: saturate(180%) blur(14px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .nav.scrolled { border-color: var(--line); box-shadow: var(--shadow-sm); }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+            gap: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font: 700 20px var(--display);
+            letter-spacing: 0.02em;
+        }
+        .logo-mark {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--red), #ff8a5c);
+            display: grid;
+            place-items: center;
+            color: #fff;
+            box-shadow: 0 8px 16px -6px rgba(238, 75, 61, 0.6);
+        }
+        .logo b { color: var(--red); }
+
+        .links { display: flex; align-items: center; gap: 4px; }
+        .links a:not(.button) {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            transition: color 0.2s, background 0.2s;
+        }
+        .links a:not(.button):hover,
+        .links a.active { color: var(--ink); background: var(--bg-soft); }
+        .links .button { margin-left: 8px; }
+
+        .icon-btn {
+            width: 42px;
+            height: 42px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            border: 1.5px solid var(--line);
+            background: var(--card);
+            color: var(--ink);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .icon-btn:hover { border-color: var(--ink); transform: translateY(-2px); }
+        .icon-btn .sun { display: none; }
+        [data-theme="dark"] .icon-btn .sun { display: block; }
+        [data-theme="dark"] .icon-btn .moon { display: none; }
+
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .burger { display: none; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 90px 0 100px;
+            background:
+                radial-gradient(900px 450px at 85% -10%, rgba(238, 75, 61, 0.16), transparent 60%),
+                radial-gradient(700px 400px at -10% 100%, rgba(246, 189, 69, 0.15), transparent 60%),
+                var(--bg);
+        }
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px 6px 8px;
+            border: 1px solid var(--line);
+            background: var(--card);
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 22px;
+            box-shadow: var(--shadow-sm);
+        }
+        .badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+
+        h1 {
+            font: 700 clamp(44px, 6.2vw, 80px)/1 var(--display);
+            letter-spacing: -0.035em;
+            margin: 0 0 22px;
+        }
+        h1 span {
+            background: linear-gradient(90deg, var(--red), #ff9a5c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .lead {
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 560px;
+            margin: 0 0 32px;
+        }
+        .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-proof {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 36px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .avatars { display: flex; }
+        .avatars span {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            margin-left: -10px;
+            display: grid;
+            place-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .avatars span:first-child { margin-left: 0; }
+        .avatars span:nth-child(1) { background: #ee4b3d; }
+        .avatars span:nth-child(2) { background: #3b82f6; }
+        .avatars span:nth-child(3) { background: #10b981; }
+        .avatars span:nth-child(4) { background: #f59e0b; }
+        .hero-proof strong { color: var(--ink); }
+
+        .visual {
+            position: relative;
+            background: linear-gradient(160deg, #16213a, #0b1220);
+            color: #fff;
+            padding: 32px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .visual::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(140deg, rgba(238, 75, 61, 0.7), transparent 40%, rgba(246, 189, 69, 0.5));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .visual .eyebrow { color: var(--gold); }
+        .visual-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+        #live-date { margin: 0; color: #b6c1d6; font-size: 14px; }
+        #live-time { font: 700 22px var(--display); }
+        .visual h2 {
+            font: 700 30px/1.15 var(--display);
+            margin: 22px 0 26px;
+            letter-spacing: -0.02em;
+        }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .stat {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 14px;
+            border-radius: 14px;
+        }
+        .stat b { display: block; font: 700 30px var(--display); color: var(--gold); line-height: 1.1; }
+        .stat small { color: #b6c1d6; font-size: 12px; line-height: 1.3; display: block; margin-top: 4px; }
+        .meter { margin-top: 22px; }
+        .meter-row { display: flex; justify-content: space-between; font-size: 13px; color: #b6c1d6; margin-bottom: 8px; }
+        .bar { height: 8px; background: rgba(255, 255, 255, 0.1); border-radius: 999px; overflow: hidden; }
+        .bar i {
+            display: block;
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+            transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* ---------- Sections ---------- */
+        .section { padding: 96px 0; }
+        .section.alt { background: var(--bg-soft); }
+        .section-head { max-width: 640px; margin-bottom: 48px; }
+        .section-head.center { text-align: center; margin-inline: auto; }
+        .section-head.center .eyebrow { justify-content: center; }
+        .section h2 {
+            font: 700 clamp(30px, 4vw, 44px)/1.1 var(--display);
+            letter-spacing: -0.025em;
+            margin: 0 0 14px;
+        }
+        .section-head p { color: var(--muted); margin: 0; font-size: 17px; }
+
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+        .card h3 { font: 700 21px var(--display); margin: 0 0 10px; }
+        .card p { color: var(--muted); margin: 0 0 18px; }
+
+        .feature .icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 20px;
+            background: rgba(238, 75, 61, 0.12);
+            color: var(--red);
+        }
+        .feature .number {
+            float: right;
+            font: 700 14px var(--display);
+            color: var(--muted);
+            opacity: 0.6;
+        }
+        .feature a { font-weight: 600; color: var(--red); display: inline-flex; gap: 6px; }
+        .feature a:hover { gap: 10px; }
+        .feature a { transition: gap 0.2s; }
+
+        /* ---------- Tools (BMI / Workout) ---------- */
+        .tool { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: stretch; }
+        .tool .card:hover { transform: none; box-shadow: var(--shadow-sm); }
+        .field { margin-bottom: 16px; }
+        .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        input, select, textarea {
+            display: block;
+            width: 100%;
+            padding: 13px 14px;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            font: inherit;
+            color: var(--ink);
+            background: var(--bg);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--red);
+            box-shadow: 0 0 0 4px rgba(238, 75, 61, 0.15);
+        }
+        .invalid { border-color: #ef4444 !important; }
+        .field-error { color: #ef4444; font-size: 12.5px; margin-top: 5px; min-height: 0; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .result-panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 14px;
+            background: linear-gradient(160deg, #16213a, #0b1220);
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 32px;
+            min-height: 300px;
+        }
+        .result-panel .placeholder { color: #94a3b8; text-align: center; margin: 0; }
+        #bmi-result, #workout-result { line-height: 1.6; }
+        .bmi-value { font: 700 60px/1 var(--display); letter-spacing: -0.03em; }
+        .bmi-cat { font-weight: 700; font-size: 18px; }
+        .bmi-note { color: #b6c1d6; font-size: 14px; margin: 0; }
+        .gauge {
+            position: relative;
+            height: 12px;
+            border-radius: 999px;
+            margin: 14px 0 6px;
+            background: linear-gradient(90deg, #38bdf8 0 17%, #22c55e 17% 50%, #f59e0b 50% 67%, #ef4444 67% 100%);
+        }
+        .gauge .marker {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border: 4px solid #0b1220;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: left 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+        .gauge-labels { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; }
+
+        .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tab {
+            padding: 9px 16px;
+            border-radius: 999px;
+            border: 1.5px solid var(--line);
+            background: transparent;
+            color: var(--ink);
+            font: 600 14px var(--font);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab:hover { border-color: var(--ink); }
+        .tab[aria-selected="true"] { background: var(--red); border-color: var(--red); color: #fff; }
+
+        .workout-title { font: 700 24px var(--display); margin: 0; }
+        .workout-meta { color: #94a3b8; font-size: 14px; margin: 0; }
+        .exercise-list { display: grid; gap: 10px; margin-top: 6px; }
+        .exercise-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            animation: slideIn 0.4s ease both;
+        }
+        .exercise-list li span { color: var(--gold); font-weight: 700; font-size: 14px; white-space: nowrap; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: none; } }
+
+        /* ---------- Plans ---------- */
+        .plans { background: linear-gradient(180deg, #0b1220, #101a2e); color: #fff; position: relative; overflow: hidden; }
+        .plans::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -150px;
+            background: radial-gradient(circle, rgba(238, 75, 61, 0.25), transparent 65%);
+        }
+        .plans .container { position: relative; }
+        .plans .section-head p { color: #94a3b8; }
+        .plans .card { background: #131d31; border-color: #26334a; color: #f1f5f9; --muted: #94a3b8; }
+        .billing {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 22px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .switch {
+            width: 52px;
+            height: 28px;
+            border-radius: 999px;
+            background: #26334a;
+            position: relative;
+            cursor: pointer;
+            border: none;
+            transition: background 0.25s;
+        }
+        .switch::after {
+            content: "";
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            transition: transform 0.25s;
+        }
+        .switch[aria-checked="true"] { background: var(--red); }
+        .switch[aria-checked="true"]::after { transform: translateX(24px); }
+        .save-pill {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+        }
+        .plan { display: flex; flex-direction: column; position: relative; }
+        .plan .button, .plan .ghost { margin-top: auto; }
+        .plan .ghost { border-color: #3a4a66; color: #fff; }
+        .plan .ghost:hover { border-color: #fff; }
+        .price { font: 700 40px var(--display); margin: 8px 0 20px; letter-spacing: -0.02em; }
+        .price small { font: 500 14px var(--font); color: #94a3b8; letter-spacing: 0; }
+        .plan ul { margin-bottom: 26px; }
+        .plan li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            padding: 7px 0;
+            font-size: 14.5px;
+            color: #cbd5e1;
+        }
+        .plan li::before {
+            content: "";
+            flex: none;
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.18)
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234ade80' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/11px no-repeat;
+        }
+        .featured { border: 2px solid var(--gold) !important; transform: scale(1.03); box-shadow: 0 30px 60px -25px rgba(246, 189, 69, 0.35); }
+        .featured:hover { transform: scale(1.03) translateY(-6px); }
+        .ribbon {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: #101826;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 999px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ---------- Testimonials ---------- */
+        .quote .stars { color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; font-size: 16px; }
+        .quote blockquote { margin: 0 0 22px; font-size: 16px; line-height: 1.65; }
+        .person { display: flex; align-items: center; gap: 12px; }
+        .person .av {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--red), #ff9a5c);
+        }
+        .person strong { display: block; font-size: 15px; }
+        .person small { color: var(--muted); }
+
+        /* ---------- FAQ ---------- */
+        .faq { max-width: 780px; margin-inline: auto; display: grid; gap: 12px; }
+        .faq details {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 4px 22px;
+            transition: border-color 0.2s;
+        }
+        .faq details[open] { border-color: var(--red); }
+        .faq summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 16px 0;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after { content: "+"; font-size: 24px; color: var(--red); transition: transform 0.25s; }
+        .faq details[open] summary::after { transform: rotate(45deg); }
+        .faq p { color: var(--muted); margin: 0 0 18px; }
+
+        /* ---------- Contact ---------- */
+        .contact-wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; align-items: start; }
+        .contact-info li { display: flex; gap: 14px; margin-bottom: 20px; color: var(--muted); }
+        .contact-info .ci {
+            flex: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: rgba(238, 75, 61, 0.12);
+            color: var(--red);
+        }
+        .contact-info strong { display: block; color: var(--ink); }
+        #contact-result { margin: 14px 0 0; font-weight: 600; min-height: 24px; }
+        .success { color: #16a34a; }
+        .error { color: #ef4444; }
+
+        /* ---------- Footer ---------- */
+        footer { background: #070b14; color: #94a3b8; padding: 56px 0 28px; font-size: 14px; }
+        .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 40px; }
+        footer h4 { color: #fff; margin: 0 0 14px; font-size: 14px; }
+        footer li { margin-bottom: 8px; }
+        footer a:hover { color: #fff; }
+        .foot-bottom {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 22px;
+            border-top: 1px solid #1c2740;
+            font-size: 13px;
+        }
+
+        /* ---------- Helpers ---------- */
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 28px;
+            transform: translate(-50%, 30px);
+            background: #0f172a;
+            color: #fff;
+            padding: 13px 22px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            font-weight: 600;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s ease;
+            z-index: 300;
+            border: 1px solid #26334a;
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+        .to-top {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            z-index: 90;
+            background: var(--red);
+            border: none;
+            color: #fff;
+            box-shadow: var(--shadow-md);
+        }
+        .to-top.show { opacity: 1; pointer-events: auto; transform: none; }
+
+        .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1000px) {
+            .hero-grid, .tool, .contact-wrap { grid-template-columns: 1fr; }
+            .grid { grid-template-columns: 1fr 1fr; }
+            .foot-grid { grid-template-columns: 1fr 1fr; }
+            .featured, .featured:hover { transform: none; }
+        }
+        @media (max-width: 860px) {
+            .burger { display: grid; }
+            .links {
+                position: fixed;
+                inset: 72px 0 auto 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                background: var(--card);
+                padding: 16px 5% 24px;
+                border-bottom: 1px solid var(--line);
+                box-shadow: var(--shadow-md);
+                transform: translateY(-12px);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.25s ease;
+            }
+            .links.open { transform: none; opacity: 1; pointer-events: auto; }
+            .links a:not(.button) { padding: 12px 14px; font-size: 16px; }
+            .links .button { margin: 8px 0 0; }
+        }
+        @media (max-width: 640px) {
+            .section { padding: 68px 0; }
+            .hero { padding: 56px 0 70px; }
+            .grid, .row { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+            .stat { padding: 12px 10px; }
+            .stat b { font-size: 24px; }
+            .foot-grid { grid-template-columns: 1fr; }
+            .visual { padding: 24px; }
+        }
     </style>
-  </head>
-  <body>
-    <nav class="nav">
-      <a class="logo" href="index.html">TITANIUM <b>FITNESS</b></a>
-      <div class="links">
-        <a href="#features">Features</a><a href="#plans">Memberships</a
-        ><a href="classes.html">Classes</a
-        ><a class="button" href="login.html">Member Login</a>
-      </div>
-    </nav>
-    <main>
-      <section class="hero">
-        <div>
-          <p class="eyebrow"><b>SMART FITNESS MANAGEMENT</b></p>
-          <h1>Your fitness.<br /><span>Organised.</span></h1>
-          <p class="lead">
-            Titanium Fitness brings members, trainers, workout plans, class
-            bookings and payments together in one simple gym-management system.
-          </p>
-          <a class="button" href="register.html">Join the gym</a
-          ><a class="ghost" href="login.html">Open dashboard</a>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Navigation -->
+    <header class="nav" id="nav">
+        <div class="container nav-inner">
+            <a class="logo" href="index.html" aria-label="Titanium Fitness home">
+                <span class="logo-mark">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg>
+                </span>
+                <span>TITANIUM <b>FITNESS</b></span>
+            </a>
+
+            <nav class="links" id="nav-links" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="#features">Features</a>
+                <a href="#bmi">BMI Calculator</a>
+                <a href="#workout">Workout</a>
+                <a href="#plans">Memberships</a>
+                <a href="#contact">Contact</a>
+                <a href="classes.html">Classes</a>
+                <a class="button btn-sm" href="login.html">Member Login</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button class="icon-btn" id="theme-toggle" type="button" onclick="changeTheme()" aria-label="Toggle dark mode">
+                    <svg class="moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+                    <svg class="sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                </button>
+                <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+                </button>
+            </div>
         </div>
-        <div class="visual">
-          <p class="eyebrow" style="color: #f6bd45">TODAY AT TITANIUM</p>
-          <h2>Train with purpose,<br />track every win.</h2>
-          <div class="stats">
-            <div><b>42</b><small>Members checked in</small></div>
-            <div><b>08</b><small>Classes today</small></div>
-            <div><b>15</b><small>Expert trainers</small></div>
-          </div>
-        </div>
-      </section>
-      <section class="section" id="features">
-        <p class="eyebrow"><b>ONE PLATFORM, EVERY ROLE</b></p>
-        <h2>Built for the whole gym.</h2>
-        <div class="grid">
-          <article class="card">
-            <div class="number">01</div>
-            <h3>Members</h3>
-            <p>
-              Manage profiles, memberships, workout progress and class bookings.
-            </p>
-            <a href="dashboard.html">View member portal -></a>
-          </article>
-          <article class="card">
-            <div class="number">02</div>
-            <h3>Trainers</h3>
-            <p>Create workout plans, monitor assigned members and schedules.</p>
-            <a href="trainer.html">View trainer portal -></a>
-          </article>
-          <article class="card">
-            <div class="number">03</div>
-            <h3>Administrators</h3>
-            <p>
-              Manage memberships, payments, employees, classes and performance.
-            </p>
-            <a href="admin.html">View admin portal -></a>
-          </article>
-        </div>
-      </section>
-      <section class="section plans" id="plans">
-        <p class="eyebrow" style="color: #f6bd45"><b>MEMBERSHIP PLANS</b></p>
-        <h2>Pick your pace.</h2>
-        <div class="grid">
-          <article class="card">
-            <h3>Starter</h3>
-            <p class="price">INR 1,999 <small>/month</small></p>
-            <ul>
-              <li>Gym floor access</li>
-              <li>Progress tracker</li>
-              <li>2 group classes</li>
-            </ul>
-            <a class="ghost" href="register.html">Choose Starter</a>
-          </article>
-          <article class="card featured">
-            <h3>Pro</h3>
-            <p class="price">INR 3,499 <small>/month</small></p>
-            <ul>
-              <li>24/7 gym access</li>
-              <li>Unlimited group classes</li>
-              <li>2 PT sessions</li>
-            </ul>
-            <a class="button" href="register.html">Choose Pro</a>
-          </article>
-          <article class="card">
-            <h3>Elite</h3>
-            <p class="price">INR 5,999 <small>/month</small></p>
-            <ul>
-              <li>All Pro benefits</li>
-              <li>Unlimited PT sessions</li>
-              <li>Nutrition guidance</li>
-            </ul>
-            <a class="ghost" href="register.html">Choose Elite</a>
-          </article>
-        </div>
-      </section>
+    </header>
+
+    <main id="main">
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <span class="badge"><span class="dot"></span> Now open 24/7 for Pro &amp; Elite members</span>
+
+                    <h1>Your fitness.<br><span>Organised.</span></h1>
+
+                    <p class="lead">
+                        Titanium Fitness brings members, trainers, workout plans,
+                        class bookings and payments together in one simple
+                        gym-management system.
+                    </p>
+
+                    <div class="hero-cta">
+                        <a class="button" href="register.html">Join the gym &rarr;</a>
+                        <a class="ghost" href="login.html">Open dashboard</a>
+                    </div>
+
+                    <div class="hero-proof">
+                        <div class="avatars" aria-hidden="true">
+                            <span>A</span><span>R</span><span>S</span><span>M</span>
+                        </div>
+                        <p style="margin:0"><strong>1,200+ members</strong> already training with us</p>
+                    </div>
+                </div>
+
+                <div class="visual reveal">
+                    <div class="visual-top">
+                        <div>
+                            <p class="eyebrow">Today at Titanium</p>
+                            <p id="live-date"></p>
+                        </div>
+                        <div id="live-time" aria-hidden="true"></div>
+                    </div>
+
+                    <h2>Train with purpose,<br>track every win.</h2>
+
+                    <div class="stats">
+                        <div class="stat">
+                            <b data-count="42">42</b>
+                            <small>Members checked in</small>
+                        </div>
+                        <div class="stat">
+                            <b data-count="8" data-pad="2">08</b>
+                            <small>Classes today</small>
+                        </div>
+                        <div class="stat">
+                            <b data-count="15">15</b>
+                            <small>Expert trainers</small>
+                        </div>
+                    </div>
+
+                    <div class="meter">
+                        <div class="meter-row"><span>Gym floor capacity</span><span>68%</span></div>
+                        <div class="bar"><i data-width="68"></i></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="section" id="features">
+            <div class="container">
+                <div class="section-head center reveal">
+                    <p class="eyebrow">One platform, every role</p>
+                    <h2>Built for the whole gym.</h2>
+                    <p>Dedicated portals keep members, trainers and administrators focused on what matters to them.</p>
+                </div>
+
+                <div class="grid">
+                    <article class="card feature reveal">
+                        <span class="number">01</span>
+                        <div class="icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+                        </div>
+                        <h3>Members</h3>
+                        <p>Manage profiles, memberships, workout progress and class bookings.</p>
+                        <a href="dashboard.html">View member portal <span>&rarr;</span></a>
+                    </article>
+
+                    <article class="card feature reveal delay-1">
+                        <span class="number">02</span>
+                        <div class="icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg>
+                        </div>
+                        <h3>Trainers</h3>
+                        <p>Create workout plans, monitor assigned members and schedules.</p>
+                        <a href="trainer.html">View trainer portal <span>&rarr;</span></a>
+                    </article>
+
+                    <article class="card feature reveal delay-2">
+                        <span class="number">03</span>
+                        <div class="icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                        </div>
+                        <h3>Administrators</h3>
+                        <p>Manage memberships, payments, employees, classes and performance.</p>
+                        <a href="admin.html">View admin portal <span>&rarr;</span></a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- BMI Calculator -->
+        <section class="section alt" id="bmi">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Fitness tool</p>
+                    <h2>BMI Calculator</h2>
+                    <p>Enter your height and weight to calculate your Body Mass Index.</p>
+                </div>
+
+                <div class="tool">
+                    <form class="card reveal" id="bmi-form" novalidate>
+                        <div class="row">
+                            <div class="field">
+                                <label for="height">Height (cm)</label>
+                                <input type="number" id="height" placeholder="e.g. 175" min="50" max="250" inputmode="decimal">
+                            </div>
+                            <div class="field">
+                                <label for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" placeholder="e.g. 70" min="10" max="300" inputmode="decimal">
+                            </div>
+                        </div>
+                        <p class="field-error" id="bmi-error" role="alert"></p>
+
+                        <div class="btn-row">
+                            <button class="button" type="button" onclick="calculateBMI()">Calculate BMI</button>
+                            <button class="ghost" type="button" onclick="resetBMI()">Reset</button>
+                        </div>
+                    </form>
+
+                    <div class="result-panel reveal delay-1">
+                        <div id="bmi-result" aria-live="polite">
+                            <p class="placeholder">Your result will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workout Section -->
+        <section class="section" id="workout">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Daily fitness</p>
+                    <h2>Workout of the Day</h2>
+                    <p>Choose a category to get a sample workout plan.</p>
+                </div>
+
+                <div class="tool">
+                    <div class="card reveal">
+                        <label for="workout-category" style="font-size:13px;font-weight:600;display:block;margin-bottom:10px">Category</label>
+                        <div class="tabs" role="tablist" aria-label="Workout categories">
+                            <button class="tab" role="tab" type="button" data-cat="chest" aria-selected="true">Chest</button>
+                            <button class="tab" role="tab" type="button" data-cat="back" aria-selected="false">Back</button>
+                            <button class="tab" role="tab" type="button" data-cat="legs" aria-selected="false">Legs</button>
+                            <button class="tab" role="tab" type="button" data-cat="cardio" aria-selected="false">Cardio</button>
+                        </div>
+
+                        <select id="workout-category" aria-label="Workout category">
+                            <option value="chest">Chest</option>
+                            <option value="back">Back</option>
+                            <option value="legs">Legs</option>
+                            <option value="cardio">Cardio</option>
+                        </select>
+
+                        <div class="btn-row" style="margin-top:18px">
+                            <button class="button" type="button" onclick="showWorkout()">Show Workout</button>
+                            <button class="ghost" type="button" onclick="shuffleWorkout()">Shuffle</button>
+                        </div>
+                    </div>
+
+                    <div class="result-panel reveal delay-1">
+                        <div id="workout-result" aria-live="polite">
+                            <p class="placeholder">Select a category and click Show Workout.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Membership Plans -->
+        <section class="section plans" id="plans">
+            <div class="container">
+                <div class="section-head center reveal">
+                    <p class="eyebrow" style="color: var(--gold)">Membership plans</p>
+                    <h2>Pick your pace.</h2>
+                    <p>Simple pricing, no joining fees, cancel any time.</p>
+
+                    <div class="billing">
+                        <span>Monthly</span>
+                        <button class="switch" id="billing-switch" type="button" role="switch" aria-checked="false" aria-label="Switch to yearly billing"></button>
+                        <span>Yearly <span class="save-pill">Save 20%</span></span>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <article class="card plan reveal">
+                        <h3>Starter</h3>
+                        <p class="price"><span data-monthly="1999" data-yearly="1599">INR 1,999</span> <small>/month</small></p>
+                        <ul>
+                            <li>Gym floor access</li>
+                            <li>Progress tracker</li>
+                            <li>2 group classes</li>
+                        </ul>
+                        <a class="ghost" href="register.html">Choose Starter</a>
+                    </article>
+
+                    <article class="card plan featured reveal delay-1">
+                        <span class="ribbon">Most popular</span>
+                        <h3>Pro</h3>
+                        <p class="price"><span data-monthly="3499" data-yearly="2799">INR 3,499</span> <small>/month</small></p>
+                        <ul>
+                            <li>24/7 gym access</li>
+                            <li>Unlimited group classes</li>
+                            <li>2 PT sessions</li>
+                        </ul>
+                        <a class="button" href="register.html">Choose Pro</a>
+                    </article>
+
+                    <article class="card plan reveal delay-2">
+                        <h3>Elite</h3>
+                        <p class="price"><span data-monthly="5999" data-yearly="4799">INR 5,999</span> <small>/month</small></p>
+                        <ul>
+                            <li>All Pro benefits</li>
+                            <li>Unlimited PT sessions</li>
+                            <li>Nutrition guidance</li>
+                        </ul>
+                        <a class="ghost" href="register.html">Choose Elite</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section alt" id="reviews">
+            <div class="container">
+                <div class="section-head center reveal">
+                    <p class="eyebrow">Member stories</p>
+                    <h2>Loved by our members.</h2>
+                </div>
+
+                <div class="grid">
+                    <article class="card quote reveal">
+                        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote>Booking classes and tracking my progress in one place has made staying consistent so much easier.</blockquote>
+                        <div class="person"><div class="av">A</div><div><strong>Aarav M.</strong><small>Pro member</small></div></div>
+                    </article>
+                    <article class="card quote reveal delay-1">
+                        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote>My trainer builds my plan right in the portal and updates it every week. Super clear and motivating.</blockquote>
+                        <div class="person"><div class="av">R</div><div><strong>Riya S.</strong><small>Elite member</small></div></div>
+                    </article>
+                    <article class="card quote reveal delay-2">
+                        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                        <blockquote>As a trainer, managing my assigned members and schedule has never been this simple.</blockquote>
+                        <div class="person"><div class="av">K</div><div><strong>Karan P.</strong><small>Trainer</small></div></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <div class="container">
+                <div class="section-head center reveal">
+                    <p class="eyebrow">FAQ</p>
+                    <h2>Questions, answered.</h2>
+                </div>
+
+                <div class="faq reveal">
+                    <details>
+                        <summary>Can I change my plan later?</summary>
+                        <p>Yes. You can upgrade or downgrade your membership at any time from your member dashboard.</p>
+                    </details>
+                    <details>
+                        <summary>Do I need to book group classes in advance?</summary>
+                        <p>We recommend booking through the Classes page so your spot is guaranteed, especially for popular evening sessions.</p>
+                    </details>
+                    <details>
+                        <summary>How do personal training sessions work?</summary>
+                        <p>Pro and Elite members get PT sessions included. Your trainer builds a plan around your goals and tracks your progress.</p>
+                    </details>
+                    <details>
+                        <summary>Is the BMI calculator medical advice?</summary>
+                        <p>No. BMI is a general screening tool. Speak to a qualified professional for personalised health guidance.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section alt" id="contact">
+            <div class="container contact-wrap">
+                <div class="reveal">
+                    <p class="eyebrow">Get in touch</p>
+                    <h2>Ready to get started?</h2>
+                    <p style="color:var(--muted);margin-bottom:28px">
+                        Have a question about memberships or classes? Send us a message and we will get back to you.
+                    </p>
+                    <ul class="contact-info">
+                        <li>
+                            <span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+                            <div><strong>Email</strong>hello@titaniumfitness.com</div>
+                        </li>
+                        <li>
+                            <span class="ci"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                            <div><strong>Opening hours</strong>Mon - Sun, 5:00 AM - 11:00 PM</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <form class="card reveal delay-1" id="contact-form" novalidate>
+                    <div class="field">
+                        <label for="contact-name">Name</label>
+                        <input type="text" id="contact-name" placeholder="Your name" autocomplete="name" required>
+                        <p class="field-error" data-for="contact-name"></p>
+                    </div>
+                    <div class="field">
+                        <label for="contact-email">Email</label>
+                        <input type="email" id="contact-email" placeholder="you@example.com" autocomplete="email" required>
+                        <p class="field-error" data-for="contact-email"></p>
+                    </div>
+                    <div class="field">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" placeholder="How can we help?" rows="5" required></textarea>
+                        <p class="field-error" data-for="contact-message"></p>
+                    </div>
+
+                    <button class="button btn-block" type="submit">Send Message</button>
+                    <p id="contact-result" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+
     </main>
+
+    <!-- Footer -->
     <footer>
-      <span>Copyright 2026 Titanium Fitness</span
-      ><span>Gym and Fitness Management System - CB Group 13</span>
+        <div class="container">
+            <div class="foot-grid">
+                <div>
+                    <a class="logo" href="index.html" style="color:#fff;margin-bottom:14px">
+                        <span class="logo-mark">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3 9v6M21 9v6M6.5 12h11"/></svg>
+                        </span>
+                        <span>TITANIUM <b>FITNESS</b></span>
+                    </a>
+                    <p style="max-width:280px">Smart gym management for members, trainers and administrators.</p>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#plans">Memberships</a></li>
+                        <li><a href="classes.html">Classes</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Portals</h4>
+                    <ul>
+                        <li><a href="dashboard.html">Member</a></li>
+                        <li><a href="trainer.html">Trainer</a></li>
+                        <li><a href="admin.html">Admin</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-bottom">
+                <span>Copyright <span id="year">2026</span> Titanium Fitness</span>
+                <span>Gym and Fitness Management System - CB Group 13</span>
+            </div>
+        </div>
     </footer>
-  </body>
+
+    <button class="icon-btn to-top" id="to-top" type="button" aria-label="Back to top">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </button>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
 </html>
